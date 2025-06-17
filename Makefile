@@ -13,4 +13,13 @@ benchmark: $(BENCHMARKS)
 	@psql -d pgvector_benchmark -f benchmarks/init/results.sql
 	@psql -d pgvector_benchmark -f benchmarks/init/teardown.sql > /dev/null
 
+vector_concat:
+	@psql -d postgres -c "SELECT 1 FROM pg_database WHERE datname = 'pgvector_benchmark'" | grep -q 1 || psql -d postgres -c "CREATE DATABASE pgvector_benchmark"
+	@psql -d pgvector_benchmark -f benchmarks/init/setup.sql > /dev/null
+	@echo "Running vector_concat benchmark..."
+	@psql -d pgvector_benchmark -f benchmarks/checks/vector_concat.sql
+	@echo "Generating results..."
+	@psql -d pgvector_benchmark -f benchmarks/init/results.sql
+	@psql -d pgvector_benchmark -f benchmarks/init/teardown.sql > /dev/null
+
 .PHONY: benchmark

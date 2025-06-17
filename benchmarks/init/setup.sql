@@ -39,56 +39,60 @@ $$;
 
 CREATE TABLE small_vectors (
     id integer,
-    embedding vector(16)
+    v1 vector(16),
+    v2 vector(16)
 );
 
 ALTER TABLE small_vectors SET (autovacuum_enabled = false);
 ALTER TABLE small_vectors SET (toast.autovacuum_enabled = false);
 
-INSERT INTO small_vectors (id, embedding)
-SELECT i, generate_random_floats(16)
+INSERT INTO small_vectors (id, v1, v2)
+SELECT i, generate_random_floats(16), generate_random_floats(16)
 FROM generate_series(1, 100) i;
 
 ANALYZE small_vectors;
 
 CREATE TABLE medium_vectors (
     id integer,
-    embedding vector(128)
+    v1 vector(128),
+    v2 vector(128)
 );
 
 ALTER TABLE medium_vectors SET (autovacuum_enabled = false);
 ALTER TABLE medium_vectors SET (toast.autovacuum_enabled = false);
 
-INSERT INTO medium_vectors (id, embedding)
-SELECT i, generate_random_floats(128)
+INSERT INTO medium_vectors (id, v1, v2)
+SELECT i, generate_random_floats(128), generate_random_floats(128)
 FROM generate_series(1, 100) i;
 
 ANALYZE medium_vectors;
 
 CREATE TABLE large_vectors (
     id integer,
-    embedding vector(1024)
+    v1 vector(1024),
+    v2 vector(1024)
 );
 
 ALTER TABLE large_vectors SET (autovacuum_enabled = false);
 ALTER TABLE large_vectors SET (toast.autovacuum_enabled = false);
 
-INSERT INTO large_vectors (id, embedding)
-SELECT i, generate_random_floats(1024)
+INSERT INTO large_vectors (id, v1, v2)
+SELECT i, generate_random_floats(1024), generate_random_floats(1024)
 FROM generate_series(1, 100) i;
 
 ANALYZE large_vectors;
 
 CREATE TABLE very_large_vectors (
     id integer,
-    embedding vector(4096)
+    v1 vector(4096),
+    v2 vector(4096)
 );
 
 ALTER TABLE very_large_vectors SET (autovacuum_enabled = false);
 ALTER TABLE very_large_vectors SET (toast.autovacuum_enabled = false);
 
-INSERT INTO very_large_vectors (id, embedding)
-SELECT i, generate_random_floats(4096)
+INSERT INTO very_large_vectors (id, v1, v2)
+SELECT i, generate_random_floats(4096), generate_random_floats(4096)
 FROM generate_series(1, 100) i;
 
 ANALYZE very_large_vectors;
