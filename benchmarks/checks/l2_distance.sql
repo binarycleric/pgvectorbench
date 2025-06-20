@@ -5,7 +5,7 @@ SELECT run_benchmark(
     16,
     10000,
     $$
-    SELECT l2_distance(embedding, embedding)
+    SELECT l2_distance(v1, v1)
     FROM small_vectors
     LIMIT 1;
     $$
@@ -18,8 +18,8 @@ SELECT run_benchmark(
     10000,
     $$
     SELECT l2_distance(
-        embedding,
-        reverse_vector(embedding)
+        v1,
+        reverse_vector(v1)
     )
     FROM small_vectors
     LIMIT 1;
@@ -49,8 +49,8 @@ SELECT run_benchmark(
     1000,
     $$
     SELECT l2_distance(
-        embedding,
-        embedding
+        v1,
+        v1
     )
     FROM medium_vectors
     LIMIT 1;
@@ -64,8 +64,8 @@ SELECT run_benchmark(
     1000,
     $$
     SELECT l2_distance(
-        embedding,
-        reverse_vector(embedding)
+        v1,
+        reverse_vector(v1)
     )
     FROM medium_vectors
     LIMIT 1;
@@ -95,8 +95,8 @@ SELECT run_benchmark(
     1000,
     $$
     SELECT l2_distance(
-        embedding,
-        embedding
+        v1,
+        v1
     )
     FROM large_vectors
     LIMIT 1;
@@ -110,8 +110,8 @@ SELECT run_benchmark(
     1000,
     $$
     SELECT l2_distance(
-        embedding,
-        reverse_vector(embedding)
+        v1,
+        reverse_vector(v1)
     )
     FROM large_vectors
     LIMIT 1;
@@ -141,8 +141,8 @@ SELECT run_benchmark(
     1000,
     $$
     SELECT l2_distance(
-        embedding,
-        embedding
+        v1,
+        v1
     )
     FROM very_large_vectors
     LIMIT 1;
@@ -156,8 +156,8 @@ SELECT run_benchmark(
     1000,
     $$
     SELECT l2_distance(
-        embedding,
-        reverse_vector(embedding)
+        v1,
+        reverse_vector(v1)
     )
     FROM very_large_vectors
     LIMIT 1;
