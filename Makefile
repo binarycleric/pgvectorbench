@@ -13,40 +13,13 @@ benchmark: $(BENCHMARKS)
 	@psql -d pgvector_benchmark -f benchmarks/init/results.sql
 	@psql -d pgvector_benchmark -f benchmarks/init/teardown.sql > /dev/null
 
-vector_concat:
+ivfflat:
 	@psql -d postgres -c "SELECT 1 FROM pg_database WHERE datname = 'pgvector_benchmark'" | grep -q 1 || psql -d postgres -c "CREATE DATABASE pgvector_benchmark"
 	@psql -d pgvector_benchmark -f benchmarks/init/setup.sql > /dev/null
-	@echo "Running vector_concat benchmark..."
-	@psql -d pgvector_benchmark -f benchmarks/checks/vector_concat.sql
+	@echo "Running ivfflat benchmark..."
+	@psql -d pgvector_benchmark -f benchmarks/checks/ivfflat.sql
 	@echo "Generating results..."
 	@psql -d pgvector_benchmark -f benchmarks/init/results.sql
 	@psql -d pgvector_benchmark -f benchmarks/init/teardown.sql > /dev/null
 
-kmeans_prefetch:
-	@psql -d postgres -c "SELECT 1 FROM pg_database WHERE datname = 'pgvector_benchmark'" | grep -q 1 || psql -d postgres -c "CREATE DATABASE pgvector_benchmark"
-	@psql -d pgvector_benchmark -f benchmarks/init/setup.sql > /dev/null
-	@echo "Running kmeans_prefetch benchmark..."
-	@psql -d pgvector_benchmark -f benchmarks/checks/kmeans_prefetch.sql
-	@echo "Generating results..."
-	@psql -d pgvector_benchmark -f benchmarks/init/results.sql
-	@psql -d pgvector_benchmark -f benchmarks/init/teardown.sql > /dev/null
-
-vector_in:
-	@psql -d postgres -c "SELECT 1 FROM pg_database WHERE datname = 'pgvector_benchmark'" | grep -q 1 || psql -d postgres -c "CREATE DATABASE pgvector_benchmark"
-	@psql -d pgvector_benchmark -f benchmarks/init/setup.sql > /dev/null
-	@echo "Running vector_in benchmark..."
-	@psql -d pgvector_benchmark -f benchmarks/checks/vector_in.sql > /dev/null
-	@echo "Generating results..."
-	@psql -d pgvector_benchmark -f benchmarks/init/results.sql
-	@psql -d pgvector_benchmark -f benchmarks/init/teardown.sql > /dev/null
-
-l2_distance:
-	@psql -d postgres -c "SELECT 1 FROM pg_database WHERE datname = 'pgvector_benchmark'" | grep -q 1 || psql -d postgres -c "CREATE DATABASE pgvector_benchmark"
-	@psql -d pgvector_benchmark -f benchmarks/init/setup.sql > /dev/null
-	@echo "Running l2_distance benchmark..."
-	@psql -d pgvector_benchmark -f benchmarks/checks/l2_distance.sql > /dev/null
-	@echo "Generating results..."
-	@psql -d pgvector_benchmark -f benchmarks/init/results.sql
-	@psql -d pgvector_benchmark -f benchmarks/init/teardown.sql > /dev/null
-
-.PHONY: benchmark
+.PHONY: benchmark ivfflat

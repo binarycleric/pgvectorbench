@@ -28,6 +28,24 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION random_variance()
+RETURNS FLOAT AS $$
+BEGIN
+    RETURN random() * 0.009 + 0.001;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create tight clusters with small variance (0.05)
+CREATE OR REPLACE FUNCTION generate_nearby_random_floats(size integer, center float)
+RETURNS float[] AS $$
+BEGIN
+    RETURN (
+        SELECT array_agg(center + random_variance())
+        FROM generate_series(1, size)
+    );
+END;
+$$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION reverse_vector(v vector)
 RETURNS vector
 LANGUAGE sql
